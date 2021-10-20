@@ -1,0 +1,26 @@
+plugins {
+    id 'application'
+}
+
+group 'ru.akrisanov'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.javalin:javalin:4.1.1'
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+}
+
+jar {
+    from {
+        configurations.compileClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    manifest {
+        attributes 'Main-Class': 'ru.akrisanov.echoIP.App'
+    }
+}
